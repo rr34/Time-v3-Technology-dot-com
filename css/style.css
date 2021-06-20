@@ -1,0 +1,175 @@
+body {
+	background-color: #eeeeee; /* soft white background */
+}
+
+.wrapper {
+	width: 95%;
+	margin: 0 auto;
+}
+
+h1, h2, h3, h4, h5, h6, p {
+	font-family: 'Helvetica' , sans-serif;
+	color: #111;
+	line-height: 24px;
+}
+
+h1 {
+	font-weight: 600;
+	font-size: 32px;
+	padding: 20px 0;
+	text-align: center;
+}
+
+h2 {
+	font-weight: 500;
+	font-size: 24px;
+	padding: 20px 0;
+	text-align: center;
+}
+
+h3 {
+	font-weight: 500;
+	font-size: 16px;
+}
+
+p {
+	font-weight: 400;
+	font-size: 16px;
+}
+
+img {
+	max-width:80%;
+	max-height:80%
+}
+
+
+nav {
+	width: 100%;
+	height: 100px;
+	background-color: #111111;
+}
+
+nav .wrapper {
+	height: 100%;
+	display: flex;
+	align-items: center;
+}
+
+nav img {
+	width: 100px;
+}
+
+nav ul {
+
+}
+
+nav ul li {
+	list-style: none;
+	float: left;
+}
+
+nav ul li a {
+	font-family: 'Courier New', monospace;
+	font-weight: 300;
+	font-size: 16px;
+	color: #ffffff;
+	text-decoration: none;
+	padding: 0 16px;
+	text-transform: uppercase;
+}
+
+nav ul li a:hover {
+	color: #5c20a1;
+}
+
+.home {
+	text-align: center;
+}
+
+.home-list {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.home-list div {
+	width: 24%;
+	height: auto;
+	background-color: #ccc;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.home figcaption {
+	font-weight: 500;
+	font-size: 24px;
+	padding: 20px 0;
+}
+
+.order-checklist {
+	margin: 1em;
+}
+
+.order-checklist-form {
+	width: 100%;
+	margin: 1em;
+}
+
+.order-checklist-table {
+	 width: 100%;
+	 margin: 1em;
+	 border: .2em solid black;
+}
+
+.order-checklist-table th, td {
+	height: 2em;
+	vertical-align: middle;
+	text-align: left;
+	border: 1px solid black;
+}
+
+.order-checklist-table th {
+	background-color: purple;
+	font-weight: bold;
+}
+/*
+.order-checklist-table input[type=text] {
+	 width: 10em;
+}
+*/
+.requestbox {
+	 width: 95%;
+	 word-wrap: break-word;
+}
+
+.pricebox {
+	 width: 3em;
+}
+
+/*.order-checklist-table tr:nth-child(even) {background-color: #888888;}*/
+
+/* FROM HERE DOWN IS NEW 1035 */
+
+.table-wrapper {
+	margin: 1em;
+	width: 100%;
+}
+
+.order-table {
+	 width: 100%;
+	 margin: 1em;
+	 border: .2em solid black;
+}
+
+.order-table th, td {
+	height: 2em;
+	vertical-align: middle;
+	text-align: left;
+	border: 1px solid black;
+}
+
+.order-table th {
+	background-color: purple;
+	font-weight: bold;
+}
