@@ -23,17 +23,12 @@ function recordPhotoUpload($orderUID, $fileDestination) {
 	// get the old value in order to append the new after comma
 	$sql = "SELECT photos FROM workorders WHERE orderUID = '" . $orderUID . "'";
 	$conn = connectdb();
-	echo "<br><br>";
-	print_r($oldValue = mysqli_query($conn, $sql)); // get the mysqli result object
-	echo "<br><br>";
-	print_r($oldValue = mysqli_fetch_array($oldValue)); // convert the result object to array
-	echo "<br><br>";
-	print_r($oldValue = $oldValue["photos"]); // get the value from the array
-	echo "<br><br>";
+	$oldValue = mysqli_query($conn, $sql); // get the mysqli result object
+	$oldValue = mysqli_fetch_array($oldValue); // convert the result object to array
+	$oldValue = $oldValue["photos"]; // get the value from the array
 
 	$sql = "UPDATE workorders SET photos = ? WHERE orderUID = ?;";
-	$conn = connectdb();
-	$updateField =  $oldValue . "," . $fileDestination;
+	$updateField =  $oldValue . $fileDestination . ",";
 
 	// update the photo field with the old value plus the new photo location plus comma
 	$stmt = mysqli_stmt_init($conn);

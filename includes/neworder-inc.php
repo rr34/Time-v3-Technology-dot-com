@@ -1,20 +1,20 @@
 <?php
 
-echo $_POST['request1'];
-echo "<br><br>";
-print_r ($_POST);
-
 if (isset($_POST['initiate'])) {
 
 	// we need the database handler and the functions
 	require_once "dbh-inc.php";
-	require 'functions-inc.php';
+	require_once "functions-inc.php";
 	
-	// generate an order number
-	$orderNumber = date("YmdHi");
-
-	// get the form data sent by the post method (instead of get, which would be in the URL)
-	$customerEmail = $_POST['customeremail'];
+	// get form data sent by the post method (POST instead of GET, which would be in the URL)
+	$customerEmail = $_POST["customeremail"];
+	
+	// generate an order number, unless the user set an appropriate number when order was initiated
+	if (strlen($_POST['ordernumber']) == 12) {
+		$orderNumber = $_POST['ordernumber'];
+	} else {
+		$orderNumber = date("YmdHi");
+	}
 	
 	$somethingwrong = false; // just to make the verification placeholder look intuitive
 	if ( $somethingwrong !== false ) {
@@ -24,18 +24,11 @@ if (isset($_POST['initiate'])) {
 	
 
 	for ($i=1; $i<=5; $i++) {
-	$request = $_POST['request' . (string)$i];
+	$request = $_POST["request" . (string)$i];
 	$price = (float) $_POST['price' . (string)$i];
 
-/*
-	echo "<br><br>";
-	echo $i;
-	echo "<br><br>";
-	echo $_POST['request' . (string)$i];
-*/
-
 	createOrder($orderNumber, $customerEmail, $request, $price);
-	header('location: ../vieworders.php?customeremail=' . $customerEmail . '&ordernumber=' . $orderNumber);
+	header("location: ../vieworders.php?customeremail=" . $customerEmail . "&usertype=admin" . "&querycriteria=orderNumber&queryvalue=" . $orderNumber);
 
 	}
 

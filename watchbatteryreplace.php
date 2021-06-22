@@ -11,6 +11,8 @@
 	<form action='includes/neworder-inc.php' method='post' id='neworder'>
 		<label for='email'>Customer email: </label>
 		<input type='text' name='customeremail' placeholder='Email...' required>
+		<label for='ordernumber'>Order Number: </label>
+		<input type='text' name='ordernumber' placeholder='set manually (optional)'>
 	</div>
 	<div>
 	<table class='order-checklist-table' name='checklisttable'>

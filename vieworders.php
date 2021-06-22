@@ -1,45 +1,59 @@
 <?php
 	include_once 'header.php';
 
-
 	require_once "includes/dbh-inc.php";
 	require_once "includes/functions-inc.php";
 	
-	// set type of user: 2 is admin, 1 is customer, 0 is anonymous
-	$permission = 2;
+	// make a variable from the URL for ease of use: types are admin, customer, anonymous
+	// TODO make the customeremail and usertype come from a session setting instead of the URL?
+	$customeremail = $_GET["customeremail"];
+	$usertype = $_GET["usertype"];
+	// set variables for which orders to show, these will come from the URL to make the link shareable
+	$querycriteria = $_GET["querycriteria"];
+	$queryvalue = $_GET["queryvalue"];
 
 	// display appropriate header
-	if ($permission == 2) {
-		echo "<h1>View and Edit Orders</h1>";
+	// TODO get the pure html out of the echo statements and separate the php code
+	if ($usertype == "admin") {
+		echo "<h1>View and Edit Order</h1>";
 	} else {
-		echo "<h1>View Orders</h1>";
+		echo "<h1>View Order</h1>";
 	}
 	
 	// display user data, establish the form in order to edit data, display order number
 	echo "<form action='updateorder.php' method='post' id='editorder'>
 	<label for='customeremail'>Customer email: </label>
-	<input type='text' name='customeremail' value=" . $_GET['customeremail'] . " style='width:30em;'>
+	<input type='text' name='customeremail' value=" . $customeremail . " style='width:30em;'>
 	</form>";
-	echo "Order #" . $_GET['ordernumber'] . "<br>";
+	if ($querycriteria == "orderNumber") {
+		echo "Order #" . $queryvalue . "<br>";
+	}
 	
-	// array of the readable field names of the database
+	// array of the readable field names of the workorders database
 	$fieldNames = array( 'ID', 'Customer Name', 'Customer Email', 'Order Number', 'Request / Response', 'Quote', 'Discount', 'Tax', 'Billed', 'Status', 'Paid', 'Photos', 'Notes' );
 
-	if 	($permission == 2 || $permission == 1) {
+	if 	($usertype == "admin" || $usertype == "customer") {
 	$fieldsDisplay = array( 4, 5, 6, 7, 8, 9, 10, 12);
 	}
 	
-	// now query the entire database for all the rows matching the requested order number
-	$sql = 'SELECT * FROM workorders WHERE orderNumber = ' . $_GET['ordernumber'];
+	// now query the entire database for all the rows matching the requested orders
+	if ($querycriteria == "customerEmail") {
+		$sql = "SELECT * FROM workorders WHERE customerEmail = '" . $queryvalue . "'"; // if requesting by email, need quotes around the email bc of the @ symbol
+		
+	} else {
+		$sql = "SELECT * FROM workorders WHERE " . $querycriteria . " = " . $queryvalue;
+	}
+	
 	$conn = connectdb();
 	
-	// first ensure there is data then build the table from the results
-	if($result = mysqli_query($conn, $sql)) {
-
+	// build the table from the results, if there is data
+	$result = mysqli_query($conn, $sql);
+	if($result) {
+		
 		echo "<div class='table-wrapper'>";
 
 		// create the table
-		if ($permission == 2 || $permission == 1) {
+		if ($usertype == "admin" || $usertype == "customer") {
 			echo "<table class='order-table' name='ordertable'>";
 		}
 		echo "<thead>";
@@ -52,7 +66,7 @@
 			}
 		}
 		// allow some users to upload photos
-		if ($permission == 2) {
+		if ($usertype == "admin") {
 			echo "<th>Upload Photo</th>";
 		}
 		echo '</thead>';
@@ -71,8 +85,8 @@
 						
 				}
 				// allow some users to upload photos
-				if ($permission == 2) {
-					echo "<td><form action='uploadphoto.php' method='POST' enctype='multipart/form-data'><input type='file' name='file'><button type='submit' name='" . $singleRow[0] . "'>Upload Photo</button></form></td>";
+				if ($usertype == "admin") {
+					echo "<td><form action='uploadphoto-inc.php' method='POST' enctype='multipart/form-data'><input type='file' name='file'><button type='submit' name='" . $singleRow[0] . "'>Upload Photo</button></form></td>";
 				}
 				echo '</tr>';
 			}
