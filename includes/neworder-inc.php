@@ -22,15 +22,16 @@ if (isset($_POST['initiate'])) {
 		exit();
 		}
 	
-
 	for ($i=1; $i<=5; $i++) {
-	$request = $_POST["request" . (string)$i];
-	$price = (float) $_POST['price' . (string)$i];
+		if ($_POST["check" . (string)$i]) {
+			$request = $_POST["request" . (string)$i];
+			$price = (float) $_POST['price' . (string)$i];
 
-	createOrder($orderNumber, $customerEmail, $request, $price);
-	header("location: ../vieworders.php?customeremail=" . $customerEmail . "&usertype=admin" . "&querycriteria=orderNumber&queryvalue=" . $orderNumber);
+			createOrder($orderNumber, $customerEmail, $request, $price);
+		}
 
 	}
+		header("location: ../vieworders.php?customeremail=" . $customerEmail . "&usertype=admin" . "&querycriteria=orderNumber&queryvalue=" . $orderNumber);
 
 } else {
 	header("location: ../watchbatteryreplace.php");
