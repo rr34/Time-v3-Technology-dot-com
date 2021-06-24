@@ -10,6 +10,7 @@ CREATE TABLE workorders (
 	billed float NOT NULL,
 	status enum ('Requested','In queue','Awaiting parts','Complete awaiting payment','Archive') NOT NULL,
 	paid enum ('No','Paid') NOT NULL,
+	owed float NOT NULL,
 	photos varchar (256) NOT NULL,
 	notes blob NOT NULL
 );
