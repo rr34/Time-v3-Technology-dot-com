@@ -31,7 +31,7 @@ if (isset($_POST['initiate'])) {
 		}
 
 	}
-		header("location: ../vieworders.php?customeremail=" . $customerEmail . "&usertype=admin" . "&querycriteria=orderNumber&queryvalue=" . $orderNumber);
+		header("location: ../vieworders.php?customerEmail=" . $customerEmail . "&userType=admin" . "&querycriteria=orderNumber&queryvalue=" . $orderNumber);
 
 } else {
 	header("location: ../watchbatteryreplace.php");
