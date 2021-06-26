@@ -1,3 +1,15 @@
+CREATE USER 'timev3technologywebsite'@'localhost' IDENTIFIED BY 'password';
+
+GRANT SELECT, INSERT, UPDATE ON timev3technologydotcom.* TO 'timev3technologywebsite'@'localhost';
+
+ALTER USER 'timev3technologywebsite'@'localhost' IDENTIFIED BY 'Hiatus32Hiatus32';
+
+FLUSH PRIVILEGES;
+
+CREATE database timev3technologydotcom;
+
+USE database timev3technologydotcom;
+
 CREATE TABLE workorders (
 	orderUID int(11) PRIMARY KEY AUTO_INCREMENT NOT NULL,
 	customerName varchar(128) NOT NULL,

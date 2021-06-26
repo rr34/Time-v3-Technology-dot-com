@@ -1,6 +1,6 @@
 <?php
 
-if (isset($_POST['initiate'])) {
+if (isset($_POST["initiate"])) {
 
 	// we need the database handler and the functions
 	require_once "dbh-inc.php";
